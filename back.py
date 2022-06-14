@@ -26,7 +26,7 @@ disp7 = Disciplina(nome='Ética',carga=60)
 disp8 = Disciplina(nome='MSMF',carga=120)
 disp9 = Disciplina(nome='QM',carga=80)
 
-prof1 = Professor(nome = 'Karla', area_atuacao = 'Exatas', disciplinas = [disp1, disp5])
+prof1 = Professor(nome = 'Karla', area_atuacao = 'Exatas', disciplinas = [disp1, disp5, disp8])
 prof2 = Professor(nome = 'Roveredo', area_atuacao = 'Programacao', disciplinas = [disp3, disp6])
 prof3 = Professor(nome = 'Mariana', area_atuacao = 'Exatas', disciplinas = [disp2])
 prof4 = Professor(nome = 'Glauco', area_atuacao = 'Negocios', disciplicas = [disp4])
@@ -34,4 +34,8 @@ prof5 = Professor(nome = 'Fred', area_atuacao = 'Humanas', disciplinas = [disp7]
 prof6 = Professor(nome = 'Camila', area_atuacao = 'Exatas', disciplinas = [disp9])
 prof7 = Professor(nome='Marli', area_atuacao='Exatas', disciplinas = [disp5,disp8])
 
+professores = [prof1,prof2,prof3,prof4,prof5,prof6,prof7]
 
+
+def cadastroProfessor():
+    return Professor(nome=(input('Nome do professor',)))
