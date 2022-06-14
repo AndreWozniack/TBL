@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
 
-sg.popup()
-
+sg.theme("DarkTeal4")
+lt1 = [
+    []
+]
