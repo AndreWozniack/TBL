@@ -68,7 +68,6 @@ def criartxt(pasta, listaprofs):
         sg.popup_error('Arquivo já existente!')
 
 <<<<<<< HEAD
-print(escolha_disp())
 =======
 def escolha_disp(x:list):
     import PySimpleGUI as sg
