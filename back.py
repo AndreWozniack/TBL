@@ -96,5 +96,6 @@ def criartxt(pasta, listaprofs):
         file = open(f"{pasta}/DadosProfessor.txt", "x")
         file.write(texto)
     except FileExistsError:
-        file = open(f"{pasta}/DadosProfessor.txt", "w")
+        file = open(f'{pasta}/DadosProfessor.txt', "w")
+        file.write(texto)
 
