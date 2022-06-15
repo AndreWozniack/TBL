@@ -13,15 +13,14 @@ def list_profs():
         [sg.Submit(), sg.Exit()]
     ]
     while True:
-        w1 = sg.Window(title='Consultas', layout=lt1, size=(580,320))
+        w1 = sg.Window(title='Consultas', layout=lt1, size=(580,200))
         evento, dados = w1.read()
         if evento == 'Professor':
             for i in back.professores:
                 if i.nome == dados['Professor']:
-                    carga.update(f'{i.contaCarga()}')
-                    w1.refresh()
+                    carga.update(i.contaCarga())
             print(dados['Professor'])
-            w1.refresh()
+            
         elif evento == 'Add Prof':
             back.add_prof(back.professores)
         elif evento == sg.WIN_CLOSED or evento == 'Exit':
