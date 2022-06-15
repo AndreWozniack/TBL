@@ -52,20 +52,6 @@ def nomes(x):
         nomes.append(i.nome)
     return nomes
 
-<<<<<<< HEAD
-def criartxt(pasta, listaprofs):
-    try:
-        file = open(f"{pasta}/DadosProfessor.txt", "x")
-        for i in listaprofs:
-            d = []
-            for j in i.disciplinas:
-                d.append(j.nome)
-            file.write(f"Nome: {i.nome}    | Disciplinas: {d}  | Carga Horária: {i.contaCarga()} horas\n")
-    except FileExistsError:
-        sg.popup_error('Arquivo já existente!')
-
-=======
->>>>>>> e7f889edab432ca0446d6a566d348cdd910fe5c1
 def escolha_disp(x:list):
     import PySimpleGUI as sg
     for i in disciplinas: 
@@ -110,5 +96,6 @@ def criartxt(pasta, listaprofs):
         file = open(f"{pasta}/DadosProfessor.txt", "x")
         file.write(texto)
     except FileExistsError:
-        file = open(f"{pasta}/DadosProfessor.txt", "w")
+        file = open(f'{pasta}/DadosProfessor.txt', "w")
+        file.write(texto)
 
