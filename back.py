@@ -41,7 +41,7 @@ professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
 
-def prof_nomes(x):
+def nomes(x):
     nomes = []
     for i in x:
         nomes.append(i.nome)
@@ -49,9 +49,9 @@ def prof_nomes(x):
 
 def escolha_disp():
     import PySimpleGUI as sg
+    lt = []
     for i in disciplinas: 
-        sg.Checkbox(text=f'{i.nome}', key=f'')
-    lt = [
-        []
-        ]
-    
+            lt.append([sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
+    return lt
+
+print(escolha_disp())
