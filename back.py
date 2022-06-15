@@ -40,6 +40,9 @@ areas_atuac = ['Calculo', 'Programação', 'Negócios', 'Humanas']
 professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
+def cira_disp():
+    carga
+    return Disciplina(nome=nome,carga=carga)
 
 def nomes(x):
     nomes = []
@@ -52,7 +55,9 @@ def escolha_disp():
     lt = []
     for i in disciplinas: 
             lt.append([sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
-    return lt
+    janela = sg.Window(title='DIsciplinas', layout=lt)
+    return janela
+
     
 def criartxt(pasta, listaprofs):
     try:
@@ -65,4 +70,24 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         sg.popup_error('Arquivo já existente!')
 
-print(escolha_disp())
+def add_prof(x): 
+    layout = [
+        [sg.Text('Nome'),sg.Input(key='Nome')],
+        [sg.Combo(values=areas_atuac, select_mode=True, key='Area Atuação' )],
+        [sg.CBox(values=disciplinas)],
+        [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
+    ]
+    while True:
+        window = sg.Window(title='Adicionar Professor', layout=layout)
+        evento, dados = window.read()
+        nome = dados['Nome']
+        area_atuac = dados['Area Atuação']
+        disps = dados['Disciplinas']
+        print(nome, area_atuac)
+        if evento == 'Adicionar':
+            professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=disps))
+        elif evento == sg.WIN_CLOSED or evento == 'Voltar':
+            break
+        
+
+escolha_disp()
