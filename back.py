@@ -11,8 +11,7 @@ class Professor:
         total = 0
         for i in self.disciplinas:
             total += i.cargaHoraria
-        return total
-
+        return f'{total}'
 
 class Disciplina:
     def __init__(self, **kwargs):
@@ -53,9 +52,6 @@ def nomes(x):
         nomes.append(i.nome)
     return nomes
 
-
-
-    
 def criartxt(pasta, listaprofs):
     try:
         file = open(f"{pasta}/DadosProfessor.txt", "x")

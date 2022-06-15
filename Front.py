@@ -3,10 +3,12 @@ import back
 
 sg.theme("DarkTeal4")
 def list_profs():
+    carga = sg.Text('Carga')
+    combo = sg.Combo(values=back.nomes(back.professores), key='Professor', size=(20,10))
     lt1 = [
         [sg.Text('Professores:'),sg.Button(button_text='Add Prof')],
-        [sg.Combo(values=back.nomes(back.professores), key='Professor', size=(20,10)), sg.Text('Carga Horaria'), sg.Input()],
-        [sg.Text('_____________________________________________________________________________')],
+        [combo, sg.Text('Carga Horaria'), carga],
+        [sg.Text(f'_'*300)],
         [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
         [sg.Submit(), sg.Exit()]
     ]
