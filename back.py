@@ -60,8 +60,8 @@ def criartxt(pasta, listaprofs):
         for i in listaprofs:
             d = ''
             for j in i.disciplinas:
-                d += j.nome + ' | '
-            file.write(f"Nome: {i.nome}    | Disciplinas: {d}\n")
+                d += j.nome + ', '
+            file.write(f"Nome: {i.nome}    | Disciplinas: {d}  | Carga Horária: {i.contaCarga}\n")
     except FileExistsError:
         sg.popup_error('Arquivo já existente!')
 
