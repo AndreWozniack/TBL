@@ -67,8 +67,6 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         sg.popup_error('Arquivo já existente!')
 
-<<<<<<< HEAD
-=======
 def escolha_disp(x:list):
     import PySimpleGUI as sg
     for i in disciplinas: 
@@ -83,22 +81,24 @@ def add_prof(x):
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
     layout = escolha_disp(layout)
-    print(layout)
     while True:
         window = sg.Window(title='Adicionar Professor', layout=layout)
         dados : dict
         evento, dados = window.read()
         nome = dados['Nome']
         area_atuac = dados['Area Atuação']
+        dados['Disciplinas'] = []
         for i in disciplinas:
             for j in dados:
-                if i == j:
-                    print(i)
-        print(nome, area_atuac)
+                if i.nome == j:
+                    print(j)
+                    if dados[j] == True:
+                        dados['Disciplinas'].append(i.nome)
         if evento == 'Adicionar':
-            professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=disps))
+            professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=dados['Disciplinas']))
+            for i in professores:
+                print(i.nome , end=' ')
         elif evento == sg.WIN_CLOSED or evento == 'Voltar':
             break
 
 
->>>>>>> b62da2f06dfbc0734909f1f835d07bfe47b6f21f
