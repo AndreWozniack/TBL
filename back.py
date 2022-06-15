@@ -70,7 +70,7 @@ def criartxt(pasta, listaprofs):
 def escolha_disp(x:list):
     import PySimpleGUI as sg
     for i in disciplinas: 
-            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
+            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
 def add_prof(x): 
@@ -81,12 +81,17 @@ def add_prof(x):
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
     layout = escolha_disp(layout)
+    print(layout)
     while True:
         window = sg.Window(title='Adicionar Professor', layout=layout)
+        dados : dict
         evento, dados = window.read()
         nome = dados['Nome']
         area_atuac = dados['Area Atuação']
-        disps = dados['Disciplinas']
+        for i in disciplinas:
+            for j in dados:
+                if i == j:
+                    print(i)
         print(nome, area_atuac)
         if evento == 'Adicionar':
             professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=disps))

@@ -5,7 +5,7 @@ sg.theme("DarkTeal4")
 def list_profs():
     lt1 = [
         [sg.Text('Professores:'),sg.Button(button_text='Add Prof')],
-        [sg.Combo(values=back.nomes(back.professores), key='Professor', size=(20,10))],
+        [sg.Combo(values=back.nomes(back.professores), key='Professor', size=(20,10)), sg.Text('Carga Horaria'), sg.Input()],
         [sg.Text('_____________________________________________________________')],
         [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
         [sg.Submit(), sg.Exit()]
