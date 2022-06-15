@@ -13,6 +13,7 @@ class Professor:
             total += i.cargaHoraria
         return total
 
+
 class Disciplina:
     def __init__(self, **kwargs):
         self.nome = kwargs['nome']
@@ -41,22 +42,18 @@ professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
 def cira_disp():
-    carga
+    """
+    nome = dados['nome']
+    carga = dados['carga']
     return Disciplina(nome=nome,carga=carga)
-
+"""
 def nomes(x):
     nomes = []
     for i in x:
         nomes.append(i.nome)
     return nomes
 
-def escolha_disp():
-    import PySimpleGUI as sg
-    lt = []
-    for i in disciplinas: 
-            lt.append([sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
-    janela = sg.Window(title='DIsciplinas', layout=lt)
-    return janela
+
 
     
 def criartxt(pasta, listaprofs):
@@ -70,13 +67,20 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         sg.popup_error('Arquivo já existente!')
 
+def escolha_disp(x:list):
+    import PySimpleGUI as sg
+    for i in disciplinas: 
+            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
+    return x
+
 def add_prof(x): 
     layout = [
-        [sg.Text('Nome'),sg.Input(key='Nome')],
-        [sg.Combo(values=areas_atuac, select_mode=True, key='Area Atuação' )],
-        [sg.CBox(values=disciplinas)],
+        [sg.Text('Nome'),sg.Input(key='Nome', size=(20,10))],
+        [sg.Combo(values=areas_atuac, key='Area Atuação' )],
+        [],
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
+    layout = escolha_disp(layout)
     while True:
         window = sg.Window(title='Adicionar Professor', layout=layout)
         evento, dados = window.read()
@@ -88,6 +92,4 @@ def add_prof(x):
             professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=disps))
         elif evento == sg.WIN_CLOSED or evento == 'Voltar':
             break
-        
 
-escolha_disp()
