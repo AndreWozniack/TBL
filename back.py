@@ -52,6 +52,7 @@ def nomes(x):
         nomes.append(i.nome)
     return nomes
 
+<<<<<<< HEAD
 def criartxt(pasta, listaprofs):
     try:
         file = open(f"{pasta}/DadosProfessor.txt", "x")
@@ -63,10 +64,12 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         sg.popup_error('Arquivo já existente!')
 
+=======
+>>>>>>> e7f889edab432ca0446d6a566d348cdd910fe5c1
 def escolha_disp(x:list):
     import PySimpleGUI as sg
     for i in disciplinas: 
-            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
+            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
     return x
 
 def add_prof(x): 
@@ -79,7 +82,6 @@ def add_prof(x):
     layout = escolha_disp(layout)
     while True:
         window = sg.Window(title='Adicionar Professor', layout=layout)
-        dados : dict
         evento, dados = window.read()
         nome = dados['Nome']
         area_atuac = dados['Area Atuação']
@@ -97,4 +99,16 @@ def add_prof(x):
         elif evento == sg.WIN_CLOSED or evento == 'Voltar':
             break
 
+def criartxt(pasta, listaprofs):
+    texto = ''
+    for i in listaprofs:
+        d = []
+        for j in i.disciplinas:
+            d.append(j.nome)
+        texto += f"Nome: {i.nome}    | Disciplinas: {d}  | Carga Horária: {i.contaCarga()} horas\n"
+    try:
+        file = open(f"{pasta}/DadosProfessor.txt", "x")
+        file.write(texto)
+    except FileExistsError:
+        file = open(f"{pasta}/DadosProfessor.txt", "w")
 
