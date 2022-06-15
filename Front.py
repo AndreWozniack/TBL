@@ -25,6 +25,8 @@ def list_profs():
     lt1 = [
         [sg.Text('Professores:'),sg.Button(button_text='Add Prof')],
         [sg.Listbox(values=back.nomes(back.professores), key='Professor', size=(20,10))],
+        [sg.Text('_____________________________________________________________')],
+        [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
         [sg.Submit(), sg.Exit()]
     ]
     while True:
@@ -35,4 +37,7 @@ def list_profs():
             print(dados['Professor'])
         elif evento == sg.WIN_CLOSED or evento == 'Exit':
             break
+        elif evento == 'Submit':
+            back.criartxt(dados['TargetFolder'], back.professores)
+            w1.close()
 list_profs()

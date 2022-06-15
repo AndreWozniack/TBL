@@ -53,5 +53,16 @@ def escolha_disp():
     for i in disciplinas: 
             lt.append([sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
     return lt
+    
+def criartxt(pasta, listaprofs):
+    try:
+        file = open(f"{pasta}/DadosProfessor.txt", "x")
+        for i in listaprofs:
+            d = ''
+            for j in i.disciplinas:
+                d += j.nome + ' | '
+            file.write(f"Nome: {i.nome}    | Disciplinas: {d}\n")
+    except FileExistsError:
+        sg.popup_error('Arquivo já existente!')
 
 print(escolha_disp())
