@@ -55,35 +55,38 @@ def nomes(x):
 def escolha_disp(x:list):
     import PySimpleGUI as sg
     for i in disciplinas: 
-            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'Disciplinas')])
+            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
 def add_prof(x): 
+    nome_prof = sg.Input(key='Nome', size=(20,10))
     layout = [
-        [sg.Text('Nome'),sg.Input(key='Nome', size=(20,10))],
-        [sg.Combo(values=areas_atuac, key='Area Atuação' )],
+        [sg.Text('Nome'),nome_prof],
+        [sg.Combo(values=areas_atuac, key='Area Atuação',default_value='')],
         [],
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
     layout = escolha_disp(layout)
+    window = sg.Window(title='Adicionar Professor', layout=layout)
+    evento, dados = window.read()
     while True:
-        window = sg.Window(title='Adicionar Professor', layout=layout)
-        evento, dados = window.read()
-        nome = dados['Nome']
-        area_atuac = dados['Area Atuação']
-        dados['Disciplinas'] = []
-        for i in disciplinas:
-            for j in dados:
-                if i.nome == j:
-                    print(j)
-                    if dados[j] == True:
-                        dados['Disciplinas'].append(i.nome)
-        if evento == 'Adicionar':
-            professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=dados['Disciplinas']))
-            for i in professores:
-                print(i.nome , end=' ')
-        elif evento == sg.WIN_CLOSED or evento == 'Voltar':
-            break
+        try:
+            nome = dados['Nome']
+            area_atuac = dados['Area Atuação']
+            dados['Disciplinas'] = []
+            for i in disciplinas:
+                if dados[i.nome] == True:
+                    dados['Disciplinas'].append(i.nome)
+            if  evento == 'Adicionar':
+                professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=dados['Disciplinas']))
+                nome_prof.update('')
+                window.refresh()
+                break
+            elif evento == sg.WIN_CLOSED or evento == 'Voltar':
+                window.close()
+                break
+        except TypeError:
+            pass
 
 def criartxt(pasta, listaprofs):
     texto = ''
@@ -98,4 +101,3 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(texto)
-
