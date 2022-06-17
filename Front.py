@@ -1,31 +1,36 @@
 import PySimpleGUI as sg
 import back
+from back import professores
 
 sg.theme("DarkTeal4")
 def list_profs():
-    carga = sg.Text('-----', k='carga')
-    add_prof_bt = sg.Button(button_text='Add Prof')
+    filtros = {'professores':back.professores, 'disciplinas':back.disciplinas}
+    k_filtros = []
+    for i in filtros:
+        k_filtros.append(i)
+
     lt1 = [
-        [sg.Combo(values=back.nomes(back.professores), key='Professor', size=(20,10), enable_events=True),add_prof_bt ],
-        [sg.Text('Carga Horaria:'), carga],
+        [[sg.Combo(k_filtros, k='filtros', enable_events=True)], sg.Listbox([], enable_events=True, key='profs', size=(10,5)) ],
+        [sg.Button('Editar Professores')],
+
         [sg.Text(f'_'*300)],
         [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
         [sg.Submit(), sg.Exit()]
     ]
-    w1 = sg.Window(title='Consultas', layout=lt1, size=(580,200))
+    w1 = sg.Window(title='Consultas', layout=lt1, size=(580,300))
     while True:
         try:
             evento, dados = w1.read()
-            if evento == 'Professor':
-                for i in back.professores:
-                    if i.nome == dados['Professor']:
-                        dados['carga'] = i.contaCarga()
-                        print(dados['carga'])
-                        carga.update(f'{i.contaCarga():<5}')
-                w1.refresh()            
-                print(dados['Professor'])
-            elif evento == 'Add Prof':
-                back.add_prof(back.professores)
+            filtro = w1.find_element('filtros')
+            profs = w1.find_element('profs')
+            if evento == 'filtros':
+                for i in filtros:
+                    for j in filtros[i]:
+                        if i == dados['filtros']:
+                            profs.update(back.nomes(filtros[i]))      
+                w1.refresh()
+            if evento == 'Editar Professores':
+                back.profs_lista()
             elif evento == sg.WIN_CLOSED or evento == 'Exit':
                 break
             elif evento == 'Submit':

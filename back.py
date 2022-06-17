@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from numpy import size
 
 class Professor:
     def __init__(self, **kwargs) -> None:
@@ -11,12 +12,12 @@ class Professor:
         total = 0
         for i in self.disciplinas:
             total += i.cargaHoraria
-        return f'{total}'
+        return total
 
 class Disciplina:
     def __init__(self, **kwargs):
         self.nome = kwargs['nome']
-        self.cargaHoraria = kwargs.pop('carga', 0)
+        self.cargaHoraria = int(kwargs.pop('carga', 0))
 
 disp1 = Disciplina(nome='MAS',carga=120)
 disp2 = Disciplina(nome = 'EAP', carga = 120)
@@ -58,7 +59,7 @@ def escolha_disp(x:list):
             x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
-def add_prof(x): 
+def add_prof(x:list): 
     nome_prof = sg.Input(key='Nome', size=(20,10))
     layout = [
         [sg.Text('Nome'),nome_prof],
@@ -66,22 +67,40 @@ def add_prof(x):
         [],
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
+    lt_pop = [
+        [sg.Text('Professor adicionado com sucesso!')],
+        [sg.Button(button_text='Add Outro', k='Add outro'), sg.Button(button_text='Sair', k='Sair')]
+    ]
+    popup = sg.Window('Adicionado', layout=lt_pop)
     layout = escolha_disp(layout)
     window = sg.Window(title='Adicionar Professor', layout=layout)
-    evento, dados = window.read()
     while True:
         try:
+            evento, dados = window.read()
             nome = dados['Nome']
             area_atuac = dados['Area Atuação']
             dados['Disciplinas'] = []
             for i in disciplinas:
                 if dados[i.nome] == True:
-                    dados['Disciplinas'].append(i.nome)
+                    dados['Disciplinas'].append(i)
             if  evento == 'Adicionar':
-                professores.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=dados['Disciplinas']))
+                x.append(Professor(nome=nome, area_atuacao=area_atuac, disciplinas=dados['Disciplinas']))
                 nome_prof.update('')
+                for i in disciplinas:
+                    y = window.find_element(f'{i.nome}')
+                    y.update(False)
+                z = window.find_element('Area Atuação')
+                z.update('')
+                while True:
+                    p_event , p_dados = popup.read()
+                    if p_event == 'Add Outro':
+                        popup.close()
+                        break
+                    elif p_event == 'Sair' or p_event == sg.WIN_CLOSED:
+                        popup.close()
+                        break
+                    break
                 window.refresh()
-                break
             elif evento == sg.WIN_CLOSED or evento == 'Voltar':
                 window.close()
                 break
@@ -101,3 +120,43 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(texto)
+
+def cancel():
+    cancel = [
+        []
+    ]
+
+def profs_lista():
+    lt_profs = [
+        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', k='area_atuac')],
+        [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
+        [sg.Exit(button_text='Sair')]
+    ]  
+    w2 = sg.Window('Lista de Professores', layout=lt_profs, size=(300,300))
+    while True:
+        evento, dados = w2.read()
+        area = w2.find_element('area_atuac')
+        profs = w2.find_element('profs')
+        if evento == 'profs':
+            print(dados['profs'])
+            for i in professores:
+                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
+                    area.update(f'Area de atuação:\n{i.area_atuacao}')
+        if evento == 'Sair' or evento == sg.WIN_CLOSED :
+            w2.close()
+            break
+        elif evento == 'Add Prof':
+                add_prof(professores)
+                combo = w2.find_element('profs')
+                combo.update(values=nomes(professores))
+                for i in professores:
+                    print(i.nome, end=', ')
+                w2.refresh()
+        elif evento == 'Excluir Prof':
+            for i in professores:
+                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
+                        sg.popup(f'Tem certeza que deseja excluir o professor(a): {dados["profs"][0]}',title='Aviso!')
+                        professores.remove(i)
+                        profs.update(nomes(professores))
+                        area.update(f'Area de atuação:\n----')
+                        w2.refresh()
