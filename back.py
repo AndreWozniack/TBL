@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 from numpy import size
-
 class Professor:
     def __init__(self, **kwargs) -> None:
         self.nome = kwargs['nome']
@@ -13,7 +12,6 @@ class Professor:
         for i in self.disciplinas:
             total += i.cargaHoraria
         return total
-
 class Disciplina:
     def __init__(self, **kwargs):
         self.nome = kwargs['nome']
@@ -120,15 +118,10 @@ def criartxt(pasta, listaprofs):
     except FileExistsError:
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(texto)
-
-def cancel():
-    cancel = [
-        []
-    ]
-
+        
 def profs_lista():
     lt_profs = [
-        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', k='area_atuac')],
+        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
         [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
         [sg.Exit(button_text='Sair')]
     ]  
@@ -138,7 +131,7 @@ def profs_lista():
         area = w2.find_element('area_atuac')
         profs = w2.find_element('profs')
         if evento == 'profs':
-            print(dados['profs'])
+            print(dados['profs'])         
             for i in professores:
                 if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
                     area.update(f'Area de atuação:\n{i.area_atuacao}')
@@ -155,7 +148,42 @@ def profs_lista():
         elif evento == 'Excluir Prof':
             for i in professores:
                 if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
-                        sg.popup(f'Tem certeza que deseja excluir o professor(a): {dados["profs"][0]}',title='Aviso!')
+                        sg.popup(f'Professor(a) {dados["profs"][0]}, excluido(a) com sucesso!',title='Aviso!')
+                        professores.remove(i)
+                        profs.update(nomes(professores))
+                        area.update(f'Area de atuação:\n----')
+                        w2.refresh()
+
+def disps_lista():
+    lt_profs = [
+        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
+        [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
+        [sg.Exit(button_text='Sair')]
+    ]  
+    w2 = sg.Window('Lista de Professores', layout=lt_profs, size=(300,300))
+    while True:
+        evento, dados = w2.read()
+        area = w2.find_element('area_atuac')
+        profs = w2.find_element('profs')
+        if evento == 'profs':
+            print(dados['profs'])         
+            for i in professores:
+                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
+                    area.update(f'Area de atuação:\n{i.area_atuacao}')
+        if evento == 'Sair' or evento == sg.WIN_CLOSED :
+            w2.close()
+            break
+        elif evento == 'Add Prof':
+                add_prof(professores)
+                combo = w2.find_element('profs')
+                combo.update(values=nomes(professores))
+                for i in professores:
+                    print(i.nome, end=', ')
+                w2.refresh()
+        elif evento == 'Excluir Prof':
+            for i in professores:
+                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
+                        sg.popup(f'Professor(a) {dados["profs"][0]}, excluido(a) com sucesso!',title='Aviso!')
                         professores.remove(i)
                         profs.update(nomes(professores))
                         area.update(f'Area de atuação:\n----')

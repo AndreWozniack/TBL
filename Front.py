@@ -4,7 +4,7 @@ from back import professores
 
 sg.theme("DarkTeal4")
 def list_profs():
-    filtros = {'professores':back.professores, 'disciplinas':back.disciplinas}
+    filtros = {'professores':back.professores, 'disciplinas':back.disciplinas,}
     k_filtros = []
     for i in filtros:
         k_filtros.append(i)
@@ -25,9 +25,8 @@ def list_profs():
             profs = w1.find_element('profs')
             if evento == 'filtros':
                 for i in filtros:
-                    for j in filtros[i]:
-                        if i == dados['filtros']:
-                            profs.update(back.nomes(filtros[i]))      
+                    if i == dados['filtros']:
+                        profs.update(back.nomes(filtros[i]))      
                 w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
@@ -38,4 +37,6 @@ def list_profs():
                 w1.close()
         except PermissionError:
             pass
+
+
 list_profs()
