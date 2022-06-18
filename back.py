@@ -1,3 +1,4 @@
+from subprocess import list2cmdline
 import PySimpleGUI as sg
 from numpy import size
 class Professor:
@@ -188,3 +189,4 @@ def disps_lista():
                         profs.update(nomes(professores))
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
+print("oi")
