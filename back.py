@@ -36,7 +36,7 @@ prof5 = Professor(nome = 'Fred', area_atuacao = 'Humanas', disciplinas = [disp7]
 prof6 = Professor(nome = 'Camila', area_atuacao = 'Exatas', disciplinas = [disp9])
 prof7 = Professor(nome='Marli', area_atuacao='Exatas', disciplinas = [disp5,disp8])
 
-
+carga_h = ['80', '120' , '60']
 areas_atuac = ['Calculo', 'Programação', 'Negócios', 'Humanas']
 professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
@@ -60,21 +60,34 @@ def escolha_disp(x:list):
     return x
 
 def add_disc(x:list):
-    nome_disc = sg.Input(k = 'Disciplina', size = (20,10))
+    nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
-        [sg.Text('Disciplina'), nome_disc],
+        [sg.Text('Nome'), nome_disc],
+        [sg.Combo(values = carga_horaria, k = 'Carga horaria', default_value='')],
         [sg.Button(button_text = 'Adicionar'), sg.Button('Voltar', k = 'Voltar' )]
     ]
     layout02 = [
-        [sg.Text('Disciplina adicionada com sucesso!')]
+        [sg.Text('Disciplina adicionada com sucesso!')],
         [sg.Button(button_text = 'Adicionar outra', k = 'Adicionar outra'), sg.Button(button_text = 'Sair', k = 'Sair')]
     ]
-    janela02 = sg.Window('Adicionada', layout = layout02, element_justification = 'center')
+
     janela = sg.Window('Adicionar disciplina', layout = layout, element_justification = 'center')
+    janela02 = sg.Window('Adicionada', layout = layout02, element_justification = 'center')
     while True: 
         try:
-            evento, dados = janela.read()
-            disciplina = dados['Disciplinas']
+            eventos , dados = janela.read()
+            nome = dados['Nome']
+            carga_horaria = dados['Carga']
+            if eventos == 'Adicionar':
+               # x.append(Disciplina(nome = nome, carga = carga_horaria ))
+                #nome_disc.update('')
+                #for j in disciplinas:
+                #    a = janela.find_element(f'{j.nome}')
+                 #   a.update(False)
+                print('Amanda está quase la')
+            elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
+                janela.close()
+                break
 
         except TypeError:
                 pass
@@ -178,35 +191,40 @@ def profs_lista():
 
 def disc_list():
     layout = [
-        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5))],
+        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
         [sg.Button('Adicionar disciplinas'), sg.Button('Excluir disciplina')],
         [sg.Exit(button_text = 'Sair')]
     ]
     janela = sg.Window('Lista de Disciplinas', layout, size=(300,300))
     while True:
         eventos, dados = janela.read()
+        carga_horaria = janela.find_element('carga_h')
         disc = janela.find_element('disciplinas')
         if eventos == 'disciplinas':
-            print(dados['disicplinas'])  
+            print(dados['disciplinas'])  
+            for i in disciplinas:
+                if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
+                    carga_horaria.update(f'Carga horária:\n{i.carga}')
         elif eventos == 'Sair' or eventos == sg.WIN_CLOSED:
             janela.close()
             break
         elif eventos == 'Adicionar disciplinas':
-                #add_disc(disciplinas)
-                #combo = janela.find_element('disciplinas')
-                #combo.update(values = nomes(disciplinas))
-                #for i in disciplinas:
-                #    print(i.nome, end=', ')
-                #janela.refresh()
-                print('Amanda esta quase lá')
+            #add_disc(disciplinas)
+            #combo = janela.find_element('disciplinas')
+            #combo.update(values = nomes(disciplinas))
+            #for i in disciplinas:
+            #    print(i.nome, end=', ')
+            #janela.refresh()
+            print('Amanda esta quase lá')
         elif eventos == 'Excluir disciplinas':
+            print('Amanda esta quase lá')
             #for i in disciplinas:
             #    if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
             #            sg.popup(f'Disciplina {dados["disciplina"][0]}, excluido(a) com sucesso!',title = 'Aviso!')
             #            disciplinas.remove(i)
             #            disc.update(nomes(disciplinas))
             #            janela.refresh() #fora ou dentro?
-            print('Amanda esta quase lá')
+            
 
 def disps_lista():
     lt_profs = [
