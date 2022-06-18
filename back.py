@@ -190,3 +190,4 @@ def disps_lista():
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
 print("oi")
+print('AAAAAAAAAA')
