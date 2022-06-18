@@ -199,12 +199,12 @@ def disc_list():
     while True:
         eventos, dados = janela.read()
         carga_horaria = janela.find_element('carga_h')
-        disc = janela.find_element('disciplinas')
+        #disc = janela.find_element('disciplinas')
         if eventos == 'disciplinas':
             print(dados['disciplinas'])  
             for i in disciplinas:
                 if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
-                    carga_horaria.update(f'Carga horária:\n{i.carga}')
+                    carga_horaria.update(f'Carga horária:\n{i.cargaHoraria}')
         elif eventos == 'Sair' or eventos == sg.WIN_CLOSED:
             janela.close()
             break
