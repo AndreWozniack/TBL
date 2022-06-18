@@ -189,5 +189,3 @@ def disps_lista():
                         profs.update(nomes(professores))
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
-print("oi")
-print('AAAAAAAAAA')
