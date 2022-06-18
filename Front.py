@@ -12,6 +12,7 @@ def list_profs():
     lt1 = [
         [[sg.Combo(k_filtros, k='filtros', enable_events=True)], sg.Listbox([], enable_events=True, key='profs', size=(10,5)) ],
         [sg.Button('Editar Professores')],
+        [sg.Button('Editar Disciplinas')],
 
         [sg.Text(f'_'*300)],
         [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
@@ -30,6 +31,8 @@ def list_profs():
                 w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
+            elif evento == 'Editar Disciplinas':
+                back.disc_list()
             elif evento == sg.WIN_CLOSED or evento == 'Exit':
                 break
             elif evento == 'Submit':

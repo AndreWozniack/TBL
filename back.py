@@ -36,6 +36,7 @@ prof5 = Professor(nome = 'Fred', area_atuacao = 'Humanas', disciplinas = [disp7]
 prof6 = Professor(nome = 'Camila', area_atuacao = 'Exatas', disciplinas = [disp9])
 prof7 = Professor(nome='Marli', area_atuacao='Exatas', disciplinas = [disp5,disp8])
 
+
 areas_atuac = ['Calculo', 'Programação', 'Negócios', 'Humanas']
 professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
@@ -154,6 +155,19 @@ def profs_lista():
                         profs.update(nomes(professores))
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
+
+def disc_list():
+    layout = [
+        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5))],
+        [sg.Button('Adicionar Disciplinas'), sg.Button('Excluir Disciplina')],
+        [sg.Exit(button_text = 'Sair')]
+    ]
+    janela = sg.Window('Lista de Disciplinas', layout, size=(300,300))
+    while True:
+        eventos, dados = janela.read()
+        disc = janela.find_element('disciplinas')
+        if eventos == 'disciplinas':
+            print(dados['disicplinas'])         
 
 def disps_lista():
     lt_profs = [
