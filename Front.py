@@ -40,4 +40,4 @@ def list_profs():
                 w1.close()
         except PermissionError:
             pass
-        
+list_profs()
