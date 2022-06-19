@@ -80,13 +80,13 @@ def add_disc(x:list):
             nome = dados['Nome']
             carga_horaria = dados['Carga horaria']
             if eventos == 'Adicionar':
-                if nome_disc not in nomes(disciplinas):
+                if nome_disc in nomes(disciplinas):
+                    sg.popup('Essa disciplina já existe!')
+                    break
+                else:
                     x.append(Disciplina(nome = nome, carga = carga_horaria ))
                     sg.popup('Disciplina adicionada com sucesso!')
                     janela.close()
-                    break
-                else:
-                    sg.popup('Essa disciplina já existe!')
                     break
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
                 janela.close()
