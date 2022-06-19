@@ -9,7 +9,7 @@ def list_profs():
         k_filtros.append(i)
 
     lt1 = [
-        [[sg.Combo(k_filtros, k='filtros', enable_events=True)], sg.Listbox([], enable_events=True, key='profs', size=(10,5)) ],
+        [[sg.Combo(k_filtros, k='filtros', enable_events=True)], sg.Listbox( [] , enable_events=True, key='profs', size=(10,5)),sg.Text('' , enable_events = True, k ='disc') ],
         [sg.Button('Editar Professores')],
         [sg.Button('Editar Disciplinas')],
 
@@ -23,13 +23,15 @@ def list_profs():
             evento, dados = w1.read()
             filtro = w1.find_element('filtros')
             profs = w1.find_element('profs')
+            disci = w1.find_element('disc')
             if evento == 'filtros':
                 for i in filtros:
                     if i == dados['filtros']:
-                        profs.update(back.nomes(filtros[i]))   
+                        profs.update(back.nomes(filtros[i]))  
                         if dados['filtros'] == 'professores':
-                            print('opa')
-                           
+                            disci.update(f'Disciplina(s): .......')
+            if evento == 'profs':
+                print('opa')
                 w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
