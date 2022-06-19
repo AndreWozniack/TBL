@@ -58,6 +58,7 @@ def escolha_disp(x:list):
     for i in disciplinas: 
             x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
+ 
 
 def escolha_prof(x:list):
     import PySimpleGUI as sg
@@ -227,7 +228,7 @@ def disc_list():
                    disciplinas.remove(i)
                    disciplina.update(nomes(disciplinas))
                    carga_horaria.update(f'Area de atuação:\n----')
-                   janela.refresh() #fora ou dentro?
+                   janela.refresh() 
             
 
 def disps_lista():
@@ -264,3 +265,5 @@ def disps_lista():
                         profs.update(nomes(professores))
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
+
+

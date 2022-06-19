@@ -1,6 +1,5 @@
 import PySimpleGUI as sg
 import back
-from back import professores
 
 sg.theme("DarkTeal4")
 def list_profs():
@@ -27,7 +26,10 @@ def list_profs():
             if evento == 'filtros':
                 for i in filtros:
                     if i == dados['filtros']:
-                        profs.update(back.nomes(filtros[i]))      
+                        profs.update(back.nomes(filtros[i]))   
+                        if dados['filtros'] == 'professores':
+                            print('opa')
+                           
                 w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
