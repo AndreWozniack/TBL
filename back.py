@@ -140,20 +140,6 @@ def add_prof(x:list):
         except TypeError:
             pass
 
-"""def criartxt(pasta, listaprofs):
-    texto = ''
-    for i in listaprofs:
-        d = []
-        for j in i.disciplinas:
-            d.append(j.nome)
-        texto += f"Nome: {i.nome:^20}    | Disciplinas: {d:^20}  | Carga Horária: {i.contaCarga():^5} horas\n"
-    try:
-        file = open(f"{pasta}/DadosProfessor.txt", "x")
-        file.write(texto)
-    except FileExistsError:
-        file = open(f'{pasta}/DadosProfessor.txt', "w")
-        file.write(texto)"""
-
 
 def criartxt(pasta):
     texto = []
@@ -169,17 +155,20 @@ def criartxt(pasta):
                 disci_t += f'{k}'
             else:
                 disci_t += f'{k}, '
-        
         texto.append(f"{i.nome:<10} | {disci_t:<15} | {i.contaCarga():^5}")
+    txt = ''
     for l in texto:
-        print(l)
-        try:
-            file = open(f"{pasta}/DadosProfessor.txt", "x")
-            file.write(l)
-        except FileExistsError:
-            file = open(f'{pasta}/DadosProfessor.txt', "w")
-            file.write(l)
-        
+        if l == texto[-1]:
+            txt += l
+        else:
+            txt += f'{l}\n'
+    print(txt)
+    try:
+        file = open(f"{pasta}/DadosProfessor.txt", "x")
+        file.write(txt)
+    except FileExistsError:
+        file = open(f'{pasta}/DadosProfessor.txt', "w")
+        file.write(txt)
 def profs_lista():
     lt_profs = [
         [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
@@ -304,5 +293,3 @@ def relatorio():
                 sg.popup('Relatório criado com sucesso!')
                 wr.close()
                 break
-
-relatorio()
