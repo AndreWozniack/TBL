@@ -80,7 +80,7 @@ def add_disc(x:list):
             nome = dados['Nome']
             carga_horaria = dados['Carga horaria']
             if eventos == 'Adicionar':
-                if x not in nomes(disciplinas):
+                if nome_disc not in nomes(disciplinas):
                     x.append(Disciplina(nome = nome, carga = carga_horaria ))
                     sg.popup('Disciplina adicionada com sucesso!')
                     janela.close()
