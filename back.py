@@ -241,7 +241,7 @@ def disc_list():
                    sg.popup(f'Disciplina {dados["disciplinas"][0]}, excluido(a) com sucesso!',title = 'Aviso!')
                    disciplinas.remove(i)
                    disciplina.update(nomes(disciplinas))
-                   carga_horaria.update(f'Area de atuação:\n----')
+                   carga_horaria.update(f'Carga horária:\n----')
                    janela.refresh() 
 
 def disps_lista():
