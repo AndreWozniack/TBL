@@ -1,5 +1,3 @@
-from re import X
-from turtle import st
 import PySimpleGUI as sg
 class Professor:
     def __init__(self, **kwargs) -> None:
@@ -163,7 +161,7 @@ def criartxt(pasta):
     except FileExistsError:
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(txt)
-        
+
 def profs_lista():
     lt_profs = [
         [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
