@@ -81,6 +81,7 @@ def add_disc(x:list):
             carga_horaria = dados['Carga horaria']
             if eventos == 'Adicionar':
                 x.append(Disciplina(nome = nome, carga = carga_horaria ))
+                janela.close()
                 break
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
                 janela.close()
