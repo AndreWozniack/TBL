@@ -30,9 +30,9 @@ def list_profs():
                         profs.update(back.nomes(filtros[i]))  
                         if dados['filtros'] == 'professores':
                             disci.update(f'Disciplina(s): .......')
-            if evento == 'profs':
-                print('opa')
-                w1.refresh()
+                        elif dados['filtros'] == 'disciplinas':
+                            disci.update('')
+                    w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
             elif evento == 'Editar Disciplinas':
