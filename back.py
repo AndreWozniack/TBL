@@ -1,3 +1,5 @@
+from re import X
+from turtle import st
 import PySimpleGUI as sg
 class Professor:
     def __init__(self, **kwargs) -> None:
@@ -152,25 +154,31 @@ def add_prof(x:list):
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(texto)"""
 
+
 def criartxt(pasta):
     texto = []
     for i in professores:
         linha = {}
-        linha['nome'] = i.nome
+        disci = []
         for j in i.disciplinas:
-            disci = []
             disci.append(j.nome)
-            linha['disciplinas'] = disci
-        linha['carga'] = i.contaCarga()
-        print(linha)
-        texto.append(linha)
-    print(texto)
-    try:
-        file = open(f"{pasta}/DadosProfessor.txt", "x")
-        file.write(texto)
-    except FileExistsError:
-        file = open(f'{pasta}/DadosProfessor.txt', "w")
-        file.write(texto)
+        linha['disciplinas'] = disci
+        disci_t =''
+        for k in linha['disciplinas']:
+            if k == linha['disciplinas'][-1]:
+                disci_t += f'{k}'
+            else:
+                disci_t += f'{k}, '
+        
+        texto.append(f"{i.nome:<10} | {disci_t:<15} | {i.contaCarga():^5}")
+    for l in texto:
+        print(l)
+        try:
+            file = open(f"{pasta}/DadosProfessor.txt", "x")
+            file.write(l)
+        except FileExistsError:
+            file = open(f'{pasta}/DadosProfessor.txt', "w")
+            file.write(l)
         
 def profs_lista():
     lt_profs = [
