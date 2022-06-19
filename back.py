@@ -68,7 +68,7 @@ def add_disc(x:list):
     nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
         [sg.Text('Nome'), nome_disc],
-        [sg.Combo(values = carga_h, k = 'Carga horaria', default_value='')],
+        [sg.Text('Carga horária'), sg.Combo(values = carga_h, k = 'Carga horaria', default_value='')],
         [sg.Button(button_text = 'Adicionar'), sg.Button('Voltar', k = 'Voltar' )]
     ]
 
