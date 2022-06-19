@@ -8,14 +8,15 @@ def root():
     for i in filtros:
         k_filtros.append(i)
     lt1 = [
-        [sg.Combo(k_filtros, k='filtros', enable_events=True, s=(16,1)), sg.VerticalSeparator(),sg.Listbox( [] , enable_events=True, key='profs', size=(16,5)), sg.Text('Ola')],
-        [sg.Text('----' , enable_events = True, k ='disc') ],
+        [sg.Combo(k_filtros, k='filtros', enable_events=True, s=(16,1)),sg.Listbox( [] , enable_events=True, key='profs', size=(16,5)), sg.Text('Ola')],
+        [sg.Text('----' , enable_events = True, k ='disc', size=(16,1)), sg.Text('----')],
         [sg.Button('Editar Professores', s=(15,1))],
         [sg.Button('Editar Disciplinas', s=(15,1))],
-        [sg.Button('Gerar Relatório', s=(15,1))]
+        [sg.Button('Gerar Relatório', s=(15,1))],
+        [sg.Button('Sair', s=(15,1))]
         
     ]
-    w1 = sg.Window(title='Consultas', layout=lt1, size=(300,250))
+    w1 = sg.Window(title='Consultas', layout=lt1, size=(300,280))
     while True:
         try:
             evento, dados = w1.read()
@@ -37,7 +38,7 @@ def root():
                 back.disc_list()
             elif evento == 'Gerar Relatório':
                 back.relatorio()
-            elif evento == sg.WIN_CLOSED or evento == 'Exit':
+            elif evento == sg.WIN_CLOSED or evento == 'Sair':
                 break
         except PermissionError:
             pass

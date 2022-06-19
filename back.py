@@ -71,14 +71,9 @@ def add_disc(x:list):
         [sg.Combo(values = carga_h, k = 'Carga horaria', default_value='')],
         [sg.Button(button_text = 'Adicionar'), sg.Button('Voltar', k = 'Voltar' )]
     ]
-    layout02 = [
-        [sg.Text('Disciplina adicionada com sucesso!')],
-        [sg.Button(button_text = 'Adicionar outra', k = 'Adicionar outra'), sg.Button(button_text = 'Sair', k = 'Sair')]
-    ]
 
     layout = escolha_prof(layout)
     janela = sg.Window('Adicionar disciplina', layout = layout)
-    janela02 = sg.Window('Adicionada', layout = layout02)
     while True: 
         try:
             eventos , dados = janela.read()
@@ -86,7 +81,7 @@ def add_disc(x:list):
             carga_horaria = dados['Carga horaria']
             if eventos == 'Adicionar':
                 x.append(Disciplina(nome = nome, carga = carga_horaria ))
-                
+                break
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
                 janela.close()
                 break
