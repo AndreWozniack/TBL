@@ -213,13 +213,12 @@ def disc_list():
             janela.close()
             break
         elif eventos == 'Adicionar disciplina':
-            #add_disc(disciplinas)
-            #combo = janela.find_element('disciplinas')
-            #combo.update(values = nomes(disciplinas))
-            #for i in disciplinas:
-            #    print(i.nome, end=', ')
-            #janela.refresh()
-            print('Gustavo vai fazer')
+            add_disc(disciplinas)
+            combo = janela.find_element('disciplinas')
+            combo.update(values = nomes(disciplinas))
+            for i in disciplinas:
+                print(i.nome, end=', ')
+            janela.refresh()
         elif eventos == 'Excluir disciplina':
             for i in disciplinas:
                if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
