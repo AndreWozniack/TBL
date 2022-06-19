@@ -41,12 +41,7 @@ areas_atuac = ['Calculo', 'Programação', 'Negócios', 'Humanas']
 professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
-def cira_disp():
-    """
-    nome = dados['nome']
-    carga = dados['carga']
-    return Disciplina(nome=nome,carga=carga)
-"""
+
 def nomes(x):
     nomes = []
     for i in x:
