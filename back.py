@@ -1,6 +1,4 @@
-from subprocess import list2cmdline
 import PySimpleGUI as sg
-from numpy import size
 class Professor:
     def __init__(self, **kwargs) -> None:
         self.nome = kwargs['nome']
@@ -65,7 +63,6 @@ def get_disc(x:list):
         disci.append(i.nome)
     return print(disci)
         
-
 def escolha_prof(x:list):
     import PySimpleGUI as sg
     for a in professores:
@@ -98,7 +95,6 @@ def add_disc(x:list):
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
                 janela.close()
                 break
-
         except TypeError:
                 pass
 
@@ -134,15 +130,7 @@ def add_prof(x:list):
                     y.update(False)
                 z = window.find_element('Area Atuação')
                 z.update('')
-                while True:
-                    p_event , p_dados = popup.read()
-                    if p_event == 'Add Outro':
-                        popup.close()
-                        break
-                    elif p_event == 'Sair' or p_event == sg.WIN_CLOSED:
-                        popup.close()
-                        break
-                    break
+                sg.popup('Professor(a) adicionado com sucesso!',title='')
                 window.refresh()
             elif evento == sg.WIN_CLOSED or evento == 'Voltar':
                 window.close()
@@ -150,13 +138,33 @@ def add_prof(x:list):
         except TypeError:
             pass
 
-def criartxt(pasta, listaprofs):
+"""def criartxt(pasta, listaprofs):
     texto = ''
     for i in listaprofs:
         d = []
         for j in i.disciplinas:
             d.append(j.nome)
-        texto += f"Nome: {i.nome}    | Disciplinas: {d}  | Carga Horária: {i.contaCarga()} horas\n"
+        texto += f"Nome: {i.nome:^20}    | Disciplinas: {d:^20}  | Carga Horária: {i.contaCarga():^5} horas\n"
+    try:
+        file = open(f"{pasta}/DadosProfessor.txt", "x")
+        file.write(texto)
+    except FileExistsError:
+        file = open(f'{pasta}/DadosProfessor.txt', "w")
+        file.write(texto)"""
+
+def criartxt(pasta):
+    texto = []
+    for i in professores:
+        linha = {}
+        linha['nome'] = i.nome
+        for j in i.disciplinas:
+            disci = []
+            disci.append(j.nome)
+            linha['disciplinas'] = disci
+        linha['carga'] = i.contaCarga()
+        print(linha)
+        texto.append(linha)
+    print(texto)
     try:
         file = open(f"{pasta}/DadosProfessor.txt", "x")
         file.write(texto)
@@ -205,7 +213,7 @@ def disc_list():
         [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
         [sg.Exit(button_text = 'Sair')]
     ]
-    janela = sg.Window('Lista de Disciplinas', layout, size=(300,300))
+    janela = sg.Window('Lista de Disciplinas', layout, size=(300,250))
     while True:
         eventos, dados = janela.read()
         carga_horaria = janela.find_element('carga_h')
@@ -235,7 +243,6 @@ def disc_list():
                    disciplina.update(nomes(disciplinas))
                    carga_horaria.update(f'Area de atuação:\n----')
                    janela.refresh() 
-            
 
 def disps_lista():
     lt_profs = [
@@ -272,5 +279,22 @@ def disps_lista():
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
 
+def relatorio():
+    lt = [
+        [sg.Text(f'_'*300)],
+        [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
+        [sg.Submit(), sg.Exit()]
+        ]
+    wr = sg.Window('Gerar Relatório', layout=lt, size=(600,100))
+    evento, dados = wr.read()
+    while True:
+        if evento == 'Exit' or evento == sg.WIN_CLOSED:
+            wr.close()
+            break
+        elif evento == 'Submit':
+                criartxt(dados['TargetFolder'])
+                sg.popup('Relatório criado com sucesso!')
+                wr.close()
+                break
 
-
+relatorio()
