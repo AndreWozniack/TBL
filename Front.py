@@ -2,19 +2,23 @@ import PySimpleGUI as sg
 import back
 
 sg.theme("DarkTeal4")
+
 def root():
+    """
+    Função principal para a execução do aplicativo
+    """
     filtros = {'professores':back.professores, 'disciplinas':back.disciplinas,}
     k_filtros = []
     for i in filtros:
         k_filtros.append(i)
     lt1 = [
         [sg.Combo(k_filtros, k='filtros', enable_events=True, s=(16,1)),sg.Listbox( [] , enable_events=True, key='profs', size=(16,5)), sg.Text('Ola')],
-        [sg.Text('----' , enable_events = True, k ='disc', size=(16,1)), sg.Text('----')],
+        [sg.Text('' , enable_events = True, k ='disc', size=(16,1)), sg.Text('----')],
         [sg.Button('Editar Professores', s=(15,1))],
         [sg.Button('Editar Disciplinas', s=(15,1))],
         [sg.Button('Gerar Relatório', s=(15,1))],
         [sg.Button('Sair', s=(15,1))]
-        
+   
     ]
     w1 = sg.Window(title='Consultas', layout=lt1, size=(300,280))
     while True:
@@ -28,7 +32,7 @@ def root():
                     if i == dados['filtros']:
                         profs.update(back.nomes(filtros[i]))  
                         if dados['filtros'] == 'professores':
-                            disci.update(f'Disciplina(s): .......')
+                            disci.update(f'')
                         if dados['filtros'] == 'disciplinas':
                             disci.update('')
                     w1.refresh()
