@@ -158,8 +158,8 @@ def edit_disc(x):
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
         [sg.Text('Carga horária:')],
-        [sg.Radio('60', 'Carga', default=True,k='carga'), sg.Radio('80', 'Carga', default=False,k='carga'), 
-        sg.Radio('120', 'Carga', default=False,k='carga')],
+        [sg.Radio('60', 'Carga', value='60', default=True,k='carga'), sg.Radio('80', 'Carga', value = '80', default=False,k='carga'), 
+        sg.Radio('120', 'Carga', value='120', default=False,k='carga')],
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
     for i in disciplinas:
