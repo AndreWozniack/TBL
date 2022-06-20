@@ -52,8 +52,6 @@ def root():
                 back.relatorio()
             elif evento == sg.WIN_CLOSED or evento == 'Sair':
                 break
-            elif evento == 'Créditos':
-                sg.popup_no_buttons(size = (300,300), image = 'gato.png')
         except PermissionError:
             pass
 
