@@ -165,7 +165,6 @@ def edit_disc(x):
     for i in disciplinas:
         if i.nome == x:
             posicao = disciplinas.index(i)
-    
     janela = sg.Window('Editar disciplina', layout, size=(300,200))
     while True:
         try:
@@ -298,6 +297,7 @@ def disc_list():
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
             edit_disc(dados['disciplinas'][0])
+            combo.update(values = nomes(disciplinas))
             janela.refresh()
 
 
