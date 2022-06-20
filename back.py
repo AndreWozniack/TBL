@@ -156,7 +156,7 @@ def add_prof(x:list):
 
 def edit_disc(x):
     layout = [
-        [sg.Text('Nome: '), sg.InputText(x.nome)]
+        [sg.Text('Nome: '), sg.InputText(default_text = x.nome)]
         [sg.Text('Carga horária:')],
         [sg.Radio('60', 'Carga', default=True), sg.Radio('80', 'Carga', default=False), sg.Radio('120', 'Carga', default=False)],
         [sg.Exit('Salvar alterações')]
