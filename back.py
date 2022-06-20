@@ -64,7 +64,7 @@ def escolha_prof(x:list):
         x.insert(2, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
 
-def add_disc(x:list):
+def add_disc(x:list): # adiciona uma disciplina
     nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
         [sg.Text('Nome'), nome_disc],
@@ -138,6 +138,9 @@ def add_prof(x:list):
         except TypeError:
             pass
 
+def edit_disc(x:list):
+
+
 def criartxt(pasta):
     texto = []
     for i in professores:
@@ -205,7 +208,7 @@ def profs_lista():
 def disc_list():
     layout = [
         [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
-        [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
+        [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina'), sg.Button('Editar disciplina')],
         [sg.Exit(button_text = 'Sair')]
     ]
     janela = sg.Window('Lista de Disciplinas', layout, size=(300,250))
@@ -240,6 +243,9 @@ def disc_list():
                     exclui = True
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
+        elif eventos == 'Editar disciplina':
+            edit_disc(disciplinas)
+
 
 
 def disps_lista():
