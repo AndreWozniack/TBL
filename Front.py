@@ -44,6 +44,8 @@ def root():
                             w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
+            elif evento == 'Créditos':
+                back.creditos()    
             elif evento == 'Editar Disciplinas':
                 back.disc_list()
             elif evento == 'Gerar Relatório':
