@@ -1,5 +1,11 @@
 import PySimpleGUI as sg
 class Professor:
+    """
+    Cira um objeto Professor com
+     - Nome
+     - Area de atuação
+     - Lista de disciplinas
+    """
     def __init__(self, **kwargs) -> None:
         self.nome = kwargs['nome']
         self.area_atuacao = kwargs.pop('area_atuacao', 'ND')
@@ -12,6 +18,11 @@ class Professor:
             total += i.cargaHoraria
         return total
 class Disciplina:
+    """
+    Cria um objeto Disciplina com :
+     - Nome
+     - Carga Horária
+    """
     def __init__(self, **kwargs):
         self.nome = kwargs['nome']
         self.cargaHoraria = int(kwargs.pop('carga', 0))
