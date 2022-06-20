@@ -143,9 +143,10 @@ def add_prof(x:list):
         except TypeError:
             pass
 
-def edit_disc(x:list):
+def edit_disc(x):
     layout = [
-        [sg.Text('Disciplina')],
+        [sg.Text('Nome: '), sg.InputText(x.nome)]
+        [sg.Text('Carga horária:')],
         [sg.Radio('60', 'Carga', default=True), sg.Radio('80', 'Carga', default=False), sg.Radio('120', 'Carga', default=False)],
         [sg.Exit('Salvar alterações')]
     ]
@@ -272,7 +273,7 @@ def disc_list():
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
-            edit_disc(disciplinas)
+            edit_disc(dados['disciplinas'][0])
 
 
 def relatorio():
