@@ -144,6 +144,8 @@ def edit_disc(x:list):
         [sg.Radio('Carga Horária', carga_h)]
     ]
     janela = sg.Window('Editar disciplina', layout)
+    while True:
+        evento, dados = janela.read()
 
 def criartxt(pasta):
     texto = []
