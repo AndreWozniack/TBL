@@ -298,6 +298,7 @@ def disc_list():
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
             edit_disc(dados['disciplinas'][0])
+            janela.refresh()
 
 
 def relatorio():
