@@ -176,7 +176,7 @@ def edit_disc(x):
                 nova_carga = '80'
             elif dados['b3']:
                 nova_carga = '120'
-                
+
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
                 break
@@ -304,6 +304,7 @@ def disc_list():
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
             edit_disc(dados['disciplinas'][0])
+            combo = janela.find_element('disciplinas')
             combo.update(values = nomes(disciplinas))
             janela.refresh()
 
