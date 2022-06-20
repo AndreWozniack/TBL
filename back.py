@@ -238,6 +238,7 @@ def disc_list():
                     janela.refresh()
                 else:
                     sg.popup('Selecione uma disciplina!')
+                    break
 
 
 def disps_lista():
