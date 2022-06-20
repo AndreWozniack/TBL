@@ -254,7 +254,8 @@ def profs_lista():
     Abre uma janela para editar a lista de professores
     """
     lt_profs = [
-        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
+        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, 
+        size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
         [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
         [sg.Button('Editar Professor'),sg.Exit(button_text='Sair')]
     ]  
@@ -301,7 +302,8 @@ def disc_list():
     Abre uma janela para editar a lista de disciplinas
     """
     layout = [
-        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
+        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, 
+        size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
         [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
         [sg.Button('Editar disciplina'), sg.Exit(button_text = 'Sair')]
     ]
