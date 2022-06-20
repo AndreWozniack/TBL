@@ -148,7 +148,7 @@ def edit_disc(x:list):
         [sg.Text('Disciplina')],
         [sg.Radio('60', 'Carga', default=True)],
         [sg.Radio('80', 'Carga', default=False)],
-        [sg.Radio('120', 'Carga', default=False)]
+        [sg.Radio('120', 'Carga', default=False)],
         [sg.Exit('Salvar alterações')]
     ]
     janela = sg.Window('Editar disciplina', layout, size=(300,300))
