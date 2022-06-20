@@ -33,15 +33,7 @@ def root():
                 for i in filtros:
                     if i == dados['filtros']:
                         profs.update(back.nomes(filtros[i]))
-                    w1.refresh()
-            if evento == 'profs':        
-                    #if dados['filtros'] == 'professores':
-                        for a in back.professores:
-                            if len(dados['profs']) > 0 and a.nome == dados['profs'][0]:
-                                disci.update(f'Disciplina(s): {a.disciplinas[0].nome}')               
-                    #if dados['filtros'] == 'disciplinas':
-                        #disci.update('')
-                            w1.refresh()
+                w1.refresh()
             if evento == 'Editar Professores':
                 back.profs_lista()
             elif evento == 'Créditos':
