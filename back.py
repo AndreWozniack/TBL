@@ -141,11 +141,12 @@ def add_prof(x:list):
 def edit_disc(x:list):
     layout = [
         [sg.Text('Disciplina')],
-        [sg.Radio('Carga Horária', carga_h)]
+        [sg.Radio('60', 'Carga')],
+        [sg.Radio('80', 'Carga')],
+        [sg.Radio('120', 'Carga')]
     ]
     janela = sg.Window('Editar disciplina', layout)
-    while True:
-        evento, dados = janela.read()
+
 
 def criartxt(pasta):
     texto = []
