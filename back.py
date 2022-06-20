@@ -170,6 +170,10 @@ def add_prof(x:list):
         except TypeError:
             pass
 
+def get_disc():
+
+    return
+    
 def edit_disc(x):
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
@@ -413,3 +417,16 @@ def relatorio():
                 sg.popup('Relatório criado com sucesso!')
                 wr.close()
                 break
+
+def creditos():
+    layout = [[sg.Text('Programa desenvolvido por:')],
+            [sg.Image(filename= 'Rafael_Venetikides.png', size = (200, 284)), sg.Image(filename = 'Pietra.png', size = (200, 284)), sg.Image(filename = 'Gustavo_e_Amanda.png', size = (379, 284)), sg.Image(filename = 'Andre.png', size = (284, 284))],
+            [sg.Text('Rafael Honorio Venetikides, Pietra Bernardelli Fadel, Gustavo Munhoz Correa, Amanda Prates Rodrigues, Andre Fabricio Wozniack')], 
+            [sg.Exit()]
+    ]
+    window = sg.Window('Créditos', layout)
+    while True:
+        evento, dados = window.read()
+        if evento == 'Exit' or evento == sg.WIN_CLOSED:
+            break
+    window.close()
