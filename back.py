@@ -61,13 +61,12 @@ def nomes(x):
         nomes.append(i.nome)
     return nomes
 
-def escolha_disp(x:list, y:int):
+def escolha_disp(x:list, y:int = 0):
     '''
     Cria n CheckBoxes dependendo do tamanho da lista 'x'
     com a quantia de itens em disciplinas, e insere na posição y da lista x
     '''
     for i in disciplinas: 
-
             x.insert(y,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
@@ -76,7 +75,6 @@ def escolha_prof(x:list, y:int):
     Cria n CheckBoxes dependendo do tamanho da lista 'x'
     com a quantia de itens em disciplinas, e insere na posição y da lista x
     '''
-
     for a in professores:
         x.insert(y, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
@@ -219,8 +217,11 @@ def edit_prof(x):
         [],
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
-
+    layout_2 = []
+    layout_2 = escolha_prof(layout_2,0)
     janela = sg.Window('Editar professor', layout, size=(300,200))
+    frame = sg.Frame('Não sei',layout_2)
+    layout.insert(2, frame)
     evento, dados = janela.read()
     while True:
         try:
@@ -292,8 +293,7 @@ def profs_lista():
 
             else:
                 sg.popup('Selecione um professor!', title='Erro!')
-            
-profs_lista()
+
 
 def disc_list():
     """

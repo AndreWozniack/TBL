@@ -11,18 +11,25 @@ def root():
     k_filtros = []
     for i in filtros:
         k_filtros.append(i)
-    lt1 = [
-        [sg.Combo(k_filtros, k='filtros', enable_events=True,
-        s=(16,1)),sg.Listbox( [] , enable_events=True, key='profs',
-        size=(16,5))],
-        [sg.Text('' , enable_events = True, k ='disc', size=(16,1))],
+
+    botoes = [
         [sg.Button('Editar Professores', s=(15,1))],
         [sg.Button('Editar Disciplinas', s=(15,1))],
         [sg.Button('Gerar Relatório', s=(15,1))],
-        [sg.Button('Sair', s=(15,1)), sg.Button('Créditos')]
+        [sg.Button('Sair', s=(15,1))], [sg.Button('Créditos', s=(15,1))]
+    ]
+   
+    combo = [
+        [sg.Listbox( [] , enable_events=True, key='profs',size=(15,5))],
+        [sg.Combo(k_filtros, k='filtros', enable_events=True,s=(15,1))],
+        [sg.Text('' , enable_events = True, k ='disc', size=(15,1))]
     ]
 
-    w1 = sg.Window(title='Consultas', layout=lt1, size=(300,280))
+    opcoes = [[sg.Frame('Opções',botoes, element_justification='c')]]
+    lista_filtro = [[sg.Frame('Lista',combo)]]
+    layout = [[sg.Column(lista_filtro),sg.Column(opcoes)]]
+    
+    w1 = sg.Window(title='Consultas', layout=layout, size=(330,220))
     while True:
         try:
             evento, dados = w1.read()
