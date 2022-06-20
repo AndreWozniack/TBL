@@ -69,6 +69,7 @@ def escolha_disp(x:list, y:int):
     com a quantia de itens em disciplinas, e insere na posição y da lista x
     '''
     for i in disciplinas: 
+
             x.insert(y,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
@@ -213,35 +214,25 @@ def edit_prof(x):
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
         [sg.Text('Disciplinas:')],
-        [sg.Radio('60', 'Carga', default=True, k='b1'), sg.Radio('80', 'Carga', default=False,k='b2'), 
-        sg.Radio('120', 'Carga', default=False,k='b3')],
+        [],
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
 
-    for i in disciplinas:
+    for i in professores:
         if i.nome == x:
-            posicao = disciplinas.index(i)
+            posicao = professores.index(i)
+            print(posicao)
 
     janela = sg.Window('Editar disciplina', layout, size=(300,200))
     while True:
         try:
             evento, dados = janela.read()
-            novo_nome = dados['nome']
-
-            if dados['b1']:
-                nova_carga = '60'
-            elif dados['b2']:
-                nova_carga = '80'
-            elif dados['b3']:
-                nova_carga = '120'
 
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
                 break
             
             elif evento == 'Salvar alterações':
-                disciplinas[posicao].cargaHoraria = nova_carga
-                disciplinas[posicao].nome = novo_nome
                 sg.popup('Alterações salvas com sucesso!', title='Sucesso!')
                 janela.close()
                 break
@@ -293,7 +284,7 @@ def profs_lista():
                         w2.refresh()
 
         elif evento == 'Editar Professor':
-            edit_prof(professores)
+            edit_prof(dados['profs'])
             
 profs_lista()
 
