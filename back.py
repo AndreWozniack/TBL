@@ -229,6 +229,7 @@ def disc_list():
                 print(i.nome, end=', ')
             janela.refresh()
         elif eventos == 'Excluir disciplina':
+            exclui = False
             for i in disciplinas:
                 if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
                     sg.popup(f'Disciplina {dados["disciplinas"][0]} excluido(a) com sucesso!',title = 'Aviso!')
@@ -236,9 +237,10 @@ def disc_list():
                     disciplina.update(nomes(disciplinas))
                     carga_horaria.update(f'Carga horária:\n----')
                     janela.refresh()
-                else:
-                    sg.popup('Selecione uma disciplina!')
-                    break
+                    exclui = True
+            if exclui == False:
+                sg.popup('Selecione uma disciplina!')
+
 
 
 def disps_lista():
