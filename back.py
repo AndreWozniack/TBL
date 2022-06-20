@@ -201,6 +201,7 @@ def edit_disc(x):
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
                 break
+            
             elif evento == 'Salvar alterações':
                 disciplinas[posicao].cargaHoraria = nova_carga
                 disciplinas[posicao].nome = novo_nome
@@ -285,7 +286,7 @@ def profs_lista():
                 for i in professores:
                     print(i.nome, end=', ')
                 w2.refresh()
-                
+
         elif evento == 'Excluir Prof':
             for i in professores:
                 if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
