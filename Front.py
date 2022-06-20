@@ -19,9 +19,9 @@ def root():
         [sg.Button('Editar Professores', s=(15,1))],
         [sg.Button('Editar Disciplinas', s=(15,1))],
         [sg.Button('Gerar Relatório', s=(15,1))],
-        [sg.Button('Sair', s=(15,1))]
-   
+        [sg.Button('Sair', s=(15,1)), sg.Button('Créditos')]
     ]
+
     w1 = sg.Window(title='Consultas', layout=lt1, size=(300,280))
     while True:
         try:
@@ -50,4 +50,5 @@ def root():
                 break
         except PermissionError:
             pass
+
 root()

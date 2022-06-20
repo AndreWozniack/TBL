@@ -54,7 +54,6 @@ areas_atuac = ['Calculo', 'Programação', 'Negócios', 'Humanas']
 professores = [prof1, prof2, prof3, prof4, prof5, prof6, prof7]
 disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
-
 def nomes(x):
     '''
     Função para pegar somente os nomes dos objetos Professor e Disciplina
@@ -78,6 +77,7 @@ def escolha_prof(x:list, y:int):
     Cria n CheckBoxes dependendo do tamanho da lista 'x'
     com a quantia de itens em disciplinas, e insere na posição y da lista x
     '''
+
     for a in professores:
         x.insert(y, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
@@ -92,7 +92,6 @@ def add_disc(x:list): # adiciona uma disciplina
         [sg.Text('Carga horária'), sg.Combo(values = carga_h, k = 'Carga horaria', default_value='')],
         [sg.Button(button_text = 'Adicionar'), sg.Button('Voltar', k = 'Voltar' )]
     ]
-
     layout = escolha_prof(layout, 2)
     janela = sg.Window('Adicionar disciplina', layout = layout)
 
@@ -104,7 +103,6 @@ def add_disc(x:list): # adiciona uma disciplina
 
             if eventos == 'Adicionar':
                 existe_disc = False
-
                 for i in disciplinas:
                     if i.nome.lower() == nome.lower():
                         existe_disc = True
@@ -122,7 +120,6 @@ def add_disc(x:list): # adiciona uma disciplina
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
                 janela.close()
                 break
-
         except TypeError:
                 pass
 
@@ -216,55 +213,55 @@ def edit_disc(x):
         except TypeError:
             pass
         
-def criartxt(pasta):
-    """
-    Recebe a pasta que será salvae e cria um .txt com as informações de todos os professores
-    """
-    texto = []
-    for i in professores:
-        linha = {}
-        disci = []
+def edit_prof(x):
+    layout = [
+        [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
+        [sg.Text('Disciplinas:')],
+        [sg.Radio('60', 'Carga', default=True, k='b1'), sg.Radio('80', 'Carga', default=False,k='b2'), 
+        sg.Radio('120', 'Carga', default=False,k='b3')],
+        [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
+    ]
 
-        for j in i.disciplinas:
-            disci.append(j.nome)
-        linha['disciplinas'] = disci
-        disci_t =''
+    for i in disciplinas:
+        if i.nome == x:
+            posicao = disciplinas.index(i)
 
-        for k in linha['disciplinas']:
-            if k == linha['disciplinas'][-1]:
-                disci_t += f'{k}'
+    janela = sg.Window('Editar disciplina', layout, size=(300,200))
+    while True:
+        try:
+            evento, dados = janela.read()
+            novo_nome = dados['nome']
 
-            else:
-                disci_t += f'{k}, '
+            if dados['b1']:
+                nova_carga = '60'
+            elif dados['b2']:
+                nova_carga = '80'
+            elif dados['b3']:
+                nova_carga = '120'
 
-        texto.append(f"{i.nome:<10} | {disci_t:<15} | {i.contaCarga():^5}")
-    txt = ''
-    
-    for l in texto:
-        if l == texto[-1]:
-            txt += l
+            if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
+                janela.close()
+                break
+            
+            elif evento == 'Salvar alterações':
+                disciplinas[posicao].cargaHoraria = nova_carga
+                disciplinas[posicao].nome = novo_nome
+                sg.popup('Alterações salvas com sucesso!', title='Sucesso!')
+                janela.close()
+                break
 
-
-        else:
-            txt += f'{l}\n'
-
-    print(txt)
-    try:
-        file = open(f"{pasta}/DadosProfessor.txt", "x")
-        file.write(txt)
-
-    except FileExistsError:
-        file = open(f'{pasta}/DadosProfessor.txt', "w")
-        file.write(txt)
+        except TypeError:
+            pass
 
 def profs_lista():
     """
     Abre uma janela para editar a lista de professores
     """
     lt_profs = [
-        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
+        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, 
+        size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
         [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
-        [sg.Exit(button_text='Sair')]
+        [sg.Button('Editar Professor'),sg.Exit(button_text='Sair')]
     ]  
 
     w2 = sg.Window('Lista de Professores', layout=lt_profs, size=(300,300))
@@ -274,7 +271,6 @@ def profs_lista():
         profs = w2.find_element('profs')
         if evento == 'profs':
             print(dados['profs'])
-
             for i in professores:
                 if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
                     area.update(f'Area de atuação:\n{i.area_atuacao}')
@@ -300,12 +296,18 @@ def profs_lista():
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
 
+        elif evento == 'Editar Professor':
+            edit_prof(professores)
+            
+profs_lista()
+
 def disc_list():
     """
     Abre uma janela para editar a lista de disciplinas
     """
     layout = [
-        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
+        [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, 
+        size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
         [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
         [sg.Button('Editar disciplina'), sg.Exit(button_text = 'Sair')]
     ]
@@ -360,6 +362,46 @@ def disc_list():
             else:
                 sg.popup('Selecione uma disciplina!', title='Erro!')
 
+def criartxt(pasta):
+    """
+    Recebe a pasta que será salvae e cria um .txt com as informações de todos os professores
+    """
+    texto = []
+    for i in professores:
+        linha = {}
+        disci = []
+
+        for j in i.disciplinas:
+            disci.append(j.nome)
+        linha['disciplinas'] = disci
+        disci_t =''
+
+        for k in linha['disciplinas']:
+            if k == linha['disciplinas'][-1]:
+                disci_t += f'{k}'
+
+            else:
+                disci_t += f'{k}, '
+
+        texto.append(f"{i.nome:<10} | {disci_t:<15} | {i.contaCarga():^5}")
+    txt = ''
+    
+    for l in texto:
+        if l == texto[-1]:
+            txt += l
+
+
+        else:
+            txt += f'{l}\n'
+
+    print(txt)
+    try:
+        file = open(f"{pasta}/DadosProfessor.txt", "x")
+        file.write(txt)
+
+    except FileExistsError:
+        file = open(f'{pasta}/DadosProfessor.txt', "w")
+        file.write(txt)
 
 def relatorio():
     """
