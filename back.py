@@ -161,7 +161,7 @@ def edit_disc(x):
         [sg.Radio('60', 'Carga', default=True), sg.Radio('80', 'Carga', default=False), sg.Radio('120', 'Carga', default=False)],
         [sg.Exit('Salvar alterações')]
     ]
-    janela = sg.Window('Editar disciplina', layout, size=(300,300))
+    janela = sg.Window('Editar disciplina', layout, size=(300,200))
     while True:
         evento, dados = janela.read()
         if evento == 'Salvar alterações' or evento == sg.WIN_CLOSED:
