@@ -158,8 +158,8 @@ def edit_disc(x):
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
         [sg.Text('Carga horária:')],
-        [sg.Radio('60', 'Carga', default=True, k='carga'), sg.Radio('80', 'Carga', default=False,k='carga'), 
-        sg.Radio('120', 'Carga', default=False,k='carga')],
+        [sg.Radio('60', 'Carga', default=True, k='b1'), sg.Radio('80', 'Carga', default=False,k='b2'), 
+        sg.Radio('120', 'Carga', default=False,k='b3')],
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
     for i in disciplinas:
@@ -170,11 +170,18 @@ def edit_disc(x):
         try:
             evento, dados = janela.read()
             novo_nome = dados['nome']
-            nova_carga = dados['carga'].Text
+            if dados['b1']:
+                nova_carga = '60'
+            elif dados['b2']:
+                nova_carga = '80'
+            elif dados['b3']:
+                nova_carga = '120'
+                
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
                 break
             elif evento == 'Salvar alterações':
+
                 disciplinas[posicao].cargaHoraria = nova_carga
                 disciplinas[posicao].nome = novo_nome
                 sg.popup('Alterações salvas com sucesso!', title='Sucesso!')
