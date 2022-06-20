@@ -1,5 +1,6 @@
-from email.policy import default
 import PySimpleGUI as sg
+
+
 class Professor:
     def __init__(self, **kwargs) -> None:
         self.nome = kwargs['nome']
