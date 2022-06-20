@@ -141,7 +141,7 @@ def add_prof(x:list):
 def edit_disc(x:list):
     layout = [
         [sg.Text('Disciplina')]
-        [sg.ratio(carga_h)]
+        [sg.Radio(carga_h)]
     ]
     janela = sg.Window('Editar disciplina', layout)
 
