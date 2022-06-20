@@ -67,10 +67,14 @@ def escolha_prof(x:list, y:int):
         x.insert(y, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
 
+<<<<<<< HEAD
 def add_disc(x:list):
     """
     Cria uma janela para adicionar uma disciplina
     """
+=======
+def add_disc(x:list): # adiciona uma disciplina
+>>>>>>> 91b4120999c9b8fd1d70c8836653bb304d8f6574
     nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
         [sg.Text('Nome'), nome_disc],
@@ -140,6 +144,16 @@ def add_prof(x:list):
                 break
         except TypeError:
             pass
+
+def edit_disc(x:list):
+    layout = [
+        [sg.Text('Disciplina')],
+        [sg.Radio('60', 'Carga')],
+        [sg.Radio('80', 'Carga')],
+        [sg.Radio('120', 'Carga')]
+    ]
+    janela = sg.Window('Editar disciplina', layout)
+
 
 def criartxt(pasta):
     """
@@ -218,7 +232,7 @@ def disc_list():
     layout = [
         [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
         [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
-        [sg.Exit(button_text = 'Sair')]
+        [sg.Button('Editar disciplina'), sg.Exit(button_text = 'Sair')]
     ]
     janela = sg.Window('Lista de Disciplinas', layout, size=(300,250))
     while True:
@@ -252,6 +266,9 @@ def disc_list():
                     exclui = True
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
+        elif eventos == 'Editar disciplina':
+            edit_disc(disciplinas)
+
 
 def relatorio():
     """
