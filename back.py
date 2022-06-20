@@ -42,38 +42,43 @@ disciplinas = [disp1, disp2, disp3, disp4, disp5, disp6, disp7, disp8, disp9]
 
 
 def nomes(x):
+    '''
+    Função para pegar somente os nomes dos objetos Professor e Disciplina
+    '''
     nomes = []
     for i in x:
         nomes.append(i.nome)
     return nomes
 
-def escolha_disp(x:list):
-    import PySimpleGUI as sg
+def escolha_disp(x:list, y:int):
+    '''
+    Cria n CheckBoxes dependendo do tamanho da lista 'x'
+    com a quantia de itens em disciplinas, e insere na posição y da lista x
+    '''
     for i in disciplinas: 
-            x.insert(2,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
+            x.insert(y,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
     return x
 
-def get_disc(x:list):
-    disci = []
-    for i in x:
-        disci.append(i.nome)
-    return print(disci)
-        
-def escolha_prof(x:list):
-    import PySimpleGUI as sg
+def escolha_prof(x:list, y:int):
+    '''
+    Cria n CheckBoxes dependendo do tamanho da lista 'x'
+    com a quantia de itens em disciplinas, e insere na posição y da lista x
+    '''
     for a in professores:
-        x.insert(2, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
+        x.insert(y, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
 
 def add_disc(x:list): # adiciona uma disciplina
+    """
+    Cria uma janela para adicionar uma disciplina
+    """
     nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
         [sg.Text('Nome'), nome_disc],
         [sg.Text('Carga horária'), sg.Combo(values = carga_h, k = 'Carga horaria', default_value='')],
         [sg.Button(button_text = 'Adicionar'), sg.Button('Voltar', k = 'Voltar' )]
     ]
-
-    layout = escolha_prof(layout)
+    layout = escolha_prof(layout, 2)
     janela = sg.Window('Adicionar disciplina', layout = layout)
     while True: 
         try:
@@ -100,6 +105,9 @@ def add_disc(x:list): # adiciona uma disciplina
                 pass
 
 def add_prof(x:list): 
+    """
+    Cria uma janela para adicionar um professor
+    """
     nome_prof = sg.Input(key='Nome', size=(20,10))
     layout = [
         [sg.Text('Nome'),nome_prof],
@@ -107,12 +115,7 @@ def add_prof(x:list):
         [],
         [sg.Button(button_text='Adicionar'), sg.Button('Voltar', key='Voltar')]
     ]
-    lt_pop = [
-        [sg.Text('Professor adicionado com sucesso!')],
-        [sg.Button(button_text='Add Outro', k='Add outro'), sg.Button(button_text='Sair', k='Sair')]
-    ]
-    popup = sg.Window('Adicionado', layout=lt_pop)
-    layout = escolha_disp(layout)
+    layout = escolha_disp(layout,2)
     window = sg.Window(title='Adicionar Professor', layout=layout)
     while True:
         try:
@@ -159,6 +162,9 @@ def edit_disc(x:list):
 
 
 def criartxt(pasta):
+    """
+    Recebe a pasta que será salvae e cria um .txt com as informações de todos os professores
+    """
     texto = []
     for i in professores:
         linha = {}
@@ -188,6 +194,9 @@ def criartxt(pasta):
         file.write(txt)
 
 def profs_lista():
+    """
+    Abre uma janela para editar a lista de professores
+    """
     lt_profs = [
         [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
         [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
@@ -223,6 +232,9 @@ def profs_lista():
                         w2.refresh()
 
 def disc_list():
+    """
+    Abre uma janela para editar a lista de disciplinas
+    """
     layout = [
         [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
         [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
@@ -264,43 +276,10 @@ def disc_list():
             edit_disc(disciplinas)
 
 
-
-def disps_lista():
-    lt_profs = [
-        [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
-        [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
-        [sg.Exit(button_text='Sair')]
-    ]  
-    w2 = sg.Window('Lista de Professores', layout=lt_profs, size=(300,300))
-    while True:
-        evento, dados = w2.read()
-        area = w2.find_element('area_atuac')
-        profs = w2.find_element('profs')
-        if evento == 'profs':
-            print(dados['profs'])         
-            for i in professores:
-                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
-                    area.update(f'Area de atuação:\n{i.area_atuacao}')
-        if evento == 'Sair' or evento == sg.WIN_CLOSED :
-            w2.close()
-            break
-        elif evento == 'Add Prof':
-                add_prof(professores)
-                combo = w2.find_element('profs')
-                combo.update(values=nomes(professores))
-                for i in professores:
-                    print(i.nome, end=', ')
-                w2.refresh()
-        elif evento == 'Excluir Prof':
-            for i in professores:
-                if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
-                        sg.popup(f'Professor(a) {dados["profs"][0]}, excluido(a) com sucesso!',title='Aviso!')
-                        professores.remove(i)
-                        profs.update(nomes(professores))
-                        area.update(f'Area de atuação:\n----')
-                        w2.refresh()
-
 def relatorio():
+    """
+    Janela para o usiário escolher a pasta para salvar o relatório
+    """
     lt = [
         [sg.Text(f'_'*300)],
         [sg.Text('Selecione sua pasta:'), sg.InputText(key = 'TargetFolder'), sg.FolderBrowse('Pesquisar')],
