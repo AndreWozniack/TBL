@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
+
+
 class Professor:
     """
     Cira um objeto Professor com
@@ -155,11 +157,18 @@ def add_prof(x:list):
 def edit_disc(x:list):
     layout = [
         [sg.Text('Disciplina')],
-        [sg.Radio('60', 'Carga')],
-        [sg.Radio('80', 'Carga')],
-        [sg.Radio('120', 'Carga')]
+        [sg.Radio('60', 'Carga', default=True), sg.Radio('80', 'Carga', default=False), sg.Radio('120', 'Carga', default=False)],
+        [sg.Exit('Salvar alterações')]
     ]
-    janela = sg.Window('Editar disciplina', layout)
+    janela = sg.Window('Editar disciplina', layout, size=(300,300))
+    while True:
+        evento, dados = janela.read()
+        if evento == 'Salvar alterações' or evento == sg.WIN_CLOSED:
+            break
+        
+
+
+
 
 
 def criartxt(pasta):
