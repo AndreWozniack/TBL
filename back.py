@@ -1,6 +1,4 @@
 import PySimpleGUI as sg
-
-
 class Professor:
     """
     Cira um objeto Professor com
@@ -222,16 +220,14 @@ def edit_prof(x):
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
 
-    for i in professores:
-        if i.nome == x:
-            posicao = professores.index(i)
-            print(posicao)
-
-    janela = sg.Window('Editar disciplina', layout, size=(300,200))
+    janela = sg.Window('Editar professor', layout, size=(300,200))
+    evento, dados = janela.read()
     while True:
         try:
-            evento, dados = janela.read()
-
+            for i,j in zip(professores,range(len(professores))):
+                if i.nome == x:
+                    professores[j].nome = dados['nome']
+ 
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
                 break
@@ -288,7 +284,14 @@ def profs_lista():
                         w2.refresh()
 
         elif evento == 'Editar Professor':
-            edit_prof(dados['profs'])
+            if len(dados['profs']) > 0:
+                edit_prof(dados['profs'][0])
+                combo = w2.find_element('profs')
+                combo.update(nomes(professores))
+                w2.refresh()
+
+            else:
+                sg.popup('Selecione um professor!', title='Erro!')
             
 profs_lista()
 
