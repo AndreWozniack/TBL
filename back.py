@@ -144,7 +144,7 @@ def edit_disc(x:list):
         [sg.ratio(carga_h)]
     ]
     janela = sg.Window('Editar disciplina', layout)
-    
+
 def criartxt(pasta):
     texto = []
     for i in professores:
@@ -212,8 +212,8 @@ def profs_lista():
 def disc_list():
     layout = [
         [sg.Listbox(nomes(disciplinas), enable_events = True, k = 'disciplinas',change_submits=True, size = (12,5)), sg.Text(f'Carga horária:\n----', k ='carga_h')],
-        [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina'), sg.Button('Editar disciplina')],
-        [sg.Exit(button_text = 'Sair')]
+        [sg.Button('Adicionar disciplina'), sg.Button('Excluir disciplina')],
+        [sg.Button('Editar disciplina'), sg.Exit(button_text = 'Sair')]
     ]
     janela = sg.Window('Lista de Disciplinas', layout, size=(300,250))
     while True:
