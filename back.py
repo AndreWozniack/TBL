@@ -190,7 +190,6 @@ def edit_disc(x):
         except TypeError:
             pass
         
-
 def criartxt(pasta):
     """
     Recebe a pasta que será salvae e cria um .txt com as informações de todos os professores
@@ -303,10 +302,13 @@ def disc_list():
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
-            edit_disc(dados['disciplinas'][0])
-            combo = janela.find_element('disciplinas')
-            combo.update(values = nomes(disciplinas))
-            janela.refresh()
+            if len(dados['disciplinas'][0]) > 0:
+                edit_disc(dados['disciplinas'][0])
+                combo = janela.find_element('disciplinas')
+                combo.update(values = nomes(disciplinas))
+                janela.refresh()
+            else:
+                sg.popup('Selecione uma disciplina!', title='Erro!')
 
 
 def relatorio():
