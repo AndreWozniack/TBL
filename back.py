@@ -156,21 +156,31 @@ def add_prof(x:list):
 
 def edit_disc(x):
     layout = [
-        [sg.Text('Nome: '), sg.InputText(default_text = x)],
+        [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
         [sg.Text('Carga horária:')],
-        [sg.Radio('60', 'Carga', default=True), sg.Radio('80', 'Carga', default=False), sg.Radio('120', 'Carga', default=False)],
-        [sg.Exit('Salvar alterações')]
+        [sg.Radio('60', 'Carga', default=True,k='carga'), sg.Radio('80', 'Carga', default=False,k='carga'), 
+        sg.Radio('120', 'Carga', default=False,k='carga')],
+        [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
+    for i in disciplinas:
+        if i.nome == x:
+            posicao = disciplinas.index(i)
+    
     janela = sg.Window('Editar disciplina', layout, size=(300,200))
     while True:
-        evento, dados = janela.read()
-        if evento == 'Salvar alterações' or evento == sg.WIN_CLOSED:
-            break
+        try:
+            evento, dados = janela.read()
+            novo_nome = dados['nome']
+            nova_carga = dados['carga']
+            if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
+                break
+            elif evento == 'Salvar alterações':
+                disciplinas[posicao].cargaHoraria = nova_carga
+                disciplinas[posicao].nome = novo_nome
+            
+        except TypeError:
+            pass
         
-
-
-
-
 
 def criartxt(pasta):
     """
