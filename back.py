@@ -173,11 +173,14 @@ def edit_disc(x):
             novo_nome = dados['nome']
             nova_carga = dados['carga']
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
+                janela.close()
                 break
             elif evento == 'Salvar alterações':
                 disciplinas[posicao].cargaHoraria = nova_carga
                 disciplinas[posicao].nome = novo_nome
-            
+                sg.popup('Alterações salvas com sucesso!', title='Sucesso!')
+                janela.close()
+                break
         except TypeError:
             pass
         
