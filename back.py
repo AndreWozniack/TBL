@@ -86,10 +86,10 @@ def add_disc(x:list):
                         existe_disc = True
                         break
                 if existe_disc:
-                    sg.popup('Disciplina já existe!')
+                    sg.popup('Disciplina já existe!', title = 'Erro!')
                 else:
                     x.append(Disciplina(nome = nome, carga = carga_horaria))
-                    sg.popup('Disciplina adicionada com sucesso!')
+                    sg.popup('Disciplina adicionada com sucesso!', title = 'Sucesso!')
                     janela.close()
                     break
             elif eventos == sg.WIN_CLOSED or eventos == 'Voltar':
@@ -239,8 +239,7 @@ def disc_list():
                     janela.refresh()
                     exclui = True
             if exclui == False:
-                sg.popup('Selecione uma disciplina!')
-
+                sg.popup('Selecione uma disciplina!', title = 'Erro!')
 
 
 def disps_lista():
