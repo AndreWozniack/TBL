@@ -67,14 +67,10 @@ def escolha_prof(x:list, y:int):
         x.insert(y, [sg.Checkbox(text = f'{a.nome}', k = f'{a.nome}')])
     return x
 
-<<<<<<< HEAD
-def add_disc(x:list):
+def add_disc(x:list): # adiciona uma disciplina
     """
     Cria uma janela para adicionar uma disciplina
     """
-=======
-def add_disc(x:list): # adiciona uma disciplina
->>>>>>> 91b4120999c9b8fd1d70c8836653bb304d8f6574
     nome_disc = sg.Input(k = 'Nome', size = (20,10))
     layout = [
         [sg.Text('Nome'), nome_disc],
