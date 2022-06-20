@@ -302,7 +302,7 @@ def disc_list():
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
-            if len(dados['disciplinas'][0]) > 0:
+            if len(dados['disciplinas']) > 0:
                 edit_disc(dados['disciplinas'][0])
                 combo = janela.find_element('disciplinas')
                 combo.update(values = nomes(disciplinas))
