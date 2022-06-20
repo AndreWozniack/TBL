@@ -172,6 +172,10 @@ def add_prof(x:list):
         except TypeError:
             pass
 
+def get_disc():
+
+    return
+    
 def edit_disc(x):
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
