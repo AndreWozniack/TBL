@@ -87,7 +87,6 @@ def add_disc(x:list):
                         break
                 if existe_disc:
                     sg.popup('Disciplina já existe!')
-                    break
                 else:
                     x.append(Disciplina(nome = nome, carga = carga_horaria))
                     sg.popup(title= 'Sucesso!', text = 'Disciplina adicionada com sucesso!')
