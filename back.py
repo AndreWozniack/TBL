@@ -213,7 +213,6 @@ def disc_list():
         eventos, dados = janela.read()
         carga_horaria = janela.find_element('carga_h')
         disciplina = janela.find_element('disciplinas')
-        #disc = janela.find_element('disciplinas')
         if eventos == 'disciplinas':
             print(dados['disciplinas'])  
             for i in disciplinas:
@@ -231,12 +230,15 @@ def disc_list():
             janela.refresh()
         elif eventos == 'Excluir disciplina':
             for i in disciplinas:
-               if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
-                   sg.popup(f'Disciplina {dados["disciplinas"][0]}, excluido(a) com sucesso!',title = 'Aviso!')
-                   disciplinas.remove(i)
-                   disciplina.update(nomes(disciplinas))
-                   carga_horaria.update(f'Carga horária:\n----')
-                   janela.refresh() 
+                if len(dados['disciplinas']) > 0  and i.nome == dados['disciplinas'][0]:
+                    sg.popup(f'Disciplina {dados["disciplinas"][0]} excluido(a) com sucesso!',title = 'Aviso!')
+                    disciplinas.remove(i)
+                    disciplina.update(nomes(disciplinas))
+                    carga_horaria.update(f'Carga horária:\n----')
+                    janela.refresh()
+                else:
+                    sg.popup('Selecione uma disciplina!')
+
 
 def disps_lista():
     lt_profs = [
