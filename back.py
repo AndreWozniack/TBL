@@ -284,7 +284,7 @@ def disc_list():
             if exclui == False:
                 sg.popup('Selecione uma disciplina!', title = 'Erro!')
         elif eventos == 'Editar disciplina':
-            edit_disc(dados['disciplinas'][0])
+            edit_disc(dados['disciplinas'])
 
 
 def relatorio():
