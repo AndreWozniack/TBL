@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from numpy import printoptions
 class Professor:
     """
     Cira um objeto Professor com
@@ -212,26 +213,51 @@ def edit_disc(x):
         except TypeError:
             pass
         
+def escolha_disp_cb(z:dict, x:list, y=0):
+    '''
+    Cria n CheckBoxes dependendo do tamanho da lista 'x'
+    com a quantia de itens em disciplinas, e insere na posição y da lista x
+    '''
+    for i in disciplinas: 
+        print(z)
+        if z[i.nome]:
+            x.insert(y,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}', default=True)])
+        else:
+            x.insert(y,[sg.Checkbox(text=f'{i.nome}', key=f'{i.nome}')])
+    return x
+
 def edit_prof(x):
 
+    for professor in professores:
+        if professor.nome == x:
+            x = professor
+    
+    nome =[[sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')]]
 
-    layout = [
-        [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
+
+    discipl = [
         [sg.Text('Disciplinas:')],
-        [],
+        [sg.Listbox(x.disciplinas, k='d')],
         [sg.Button('Salvar alterações'), sg.Exit('Cancelar')]
     ]
-    layout_2 = []
-    layout_2 = escolha_prof(layout_2,0)
-    janela = sg.Window('Editar professor', layout, size=(300,200))
-    frame = sg.Frame('Não sei',layout_2)
-    layout.insert(2, frame)
+    
+    
+    layout = [[sg.Column(nome)], [sg.Column(discipl)]]
+    janela = sg.Window('Editar professor', layout)
     evento, dados = janela.read()
+    d = janela.find_element('d')
+    print(dados)
     while True:
         try:
             for i,j in zip(professores,range(len(professores))):
                 if i.nome == x:
                     professores[j].nome = dados['nome']
+
+            """for i in disciplinas:
+                for j in professores:
+                    for k in j.disciplinas:
+                        if i.nome == evento and dados[i.nome]:
+                            print(i, dados[i.nome])"""
  
             if evento == 'Cancelar' or evento == sg.WIN_CLOSED:
                 janela.close()
@@ -251,9 +277,9 @@ def profs_lista():
     """
     lt_profs = [
         [sg.Listbox(nomes(professores), enable_events=True, key='profs', change_submits=True, 
-        size=(12,5)),sg.Text(f'Area de atuação:\n----', key='area_atuac')],
+        size=(12,5)),sg.Text(f'Area de atuação:\n......\n\nDisciplinas:\n.......', key='area_atuac')],
         [sg.Button('Add Prof'), sg.Button('Excluir Prof')],
-        [sg.Button('Editar Professor'),sg.Exit(button_text='Sair')]
+        [sg.Exit(button_text='Sair')] #sg.Button('Editar Professor'),
     ]  
 
     w2 = sg.Window('Lista de Professores', layout=lt_profs, size=(300,300))
@@ -265,7 +291,7 @@ def profs_lista():
             print(dados['profs'])
             for i in professores:
                 if len(dados['profs']) > 0  and i.nome == dados['profs'][0]:
-                    area.update(f'Area de atuação:\n{i.area_atuacao}')
+                    area.update(f'Area de atuação:\n{i.area_atuacao}\n\nDisciplinas:\n{nomes(i.disciplinas)}')
 
         if evento == 'Sair' or evento == sg.WIN_CLOSED :
             w2.close()
@@ -288,7 +314,7 @@ def profs_lista():
                         area.update(f'Area de atuação:\n----')
                         w2.refresh()
 
-        elif evento == 'Editar Professor':
+        """elif evento == 'Editar Professor':
             if len(dados['profs']) > 0:
                 edit_prof(dados['profs'][0])
                 combo = w2.find_element('profs')
@@ -296,8 +322,7 @@ def profs_lista():
                 w2.refresh()
 
             else:
-                sg.popup('Selecione um professor!', title='Erro!')
-
+                sg.popup('Selecione um professor!', title='Erro!')"""
 
 def disc_list():
     """
@@ -424,9 +449,6 @@ def relatorio():
             else:
                 sg.popup('Escolha uma pasta!')
                 wr.close()
-
-
-
 
 def creditos():
     layout = [[sg.Text('Programa desenvolvido por:')],
