@@ -125,6 +125,8 @@ def add_prof(x:list):
     Cria uma janela para adicionar um professor
     """
     nome_prof = sg.Input(key='Nome', size=(20,10))
+
+
     layout = [
         [sg.Text('Nome'),nome_prof],
         [sg.Combo(values=areas_atuac, key='Area Atuação',default_value='')],
@@ -211,6 +213,8 @@ def edit_disc(x):
             pass
         
 def edit_prof(x):
+
+
     layout = [
         [sg.Text('Nome: '), sg.InputText(default_text = x, k = 'nome')],
         [sg.Text('Disciplinas:')],
@@ -356,7 +360,7 @@ def disc_list():
             else:
                 sg.popup('Selecione uma disciplina!', title='Erro!')
 
-def criartxt(pasta):
+def criartxt(pasta) -> bool:
     """
     Recebe a pasta que será salvae e cria um .txt com as informações de todos os professores
     """
@@ -376,15 +380,11 @@ def criartxt(pasta):
 
             else:
                 disci_t += f'{k}, '
-
         texto.append(f"{i.nome:<10} | {disci_t:<15} | {i.contaCarga():^5}")
     txt = ''
-    
     for l in texto:
         if l == texto[-1]:
             txt += l
-
-
         else:
             txt += f'{l}\n'
 
@@ -392,10 +392,11 @@ def criartxt(pasta):
     try:
         file = open(f"{pasta}/DadosProfessor.txt", "x")
         file.write(txt)
-
+        return True
     except FileExistsError:
         file = open(f'{pasta}/DadosProfessor.txt', "w")
         file.write(txt)
+        return True
 
 def relatorio():
     """
@@ -414,12 +415,18 @@ def relatorio():
         if evento == 'Exit' or evento == sg.WIN_CLOSED:
             wr.close()
             break
-
-        elif evento == 'Submit':
+        if evento == 'Submit':
+            if len(dados['TargetFolder']) > 0:
                 criartxt(dados['TargetFolder'])
                 sg.popup('Relatório criado com sucesso!')
                 wr.close()
                 break
+            else:
+                sg.popup('Escolha uma pasta!')
+                wr.close()
+
+
+
 
 def creditos():
     layout = [[sg.Text('Programa desenvolvido por:')],

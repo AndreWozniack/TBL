@@ -18,7 +18,7 @@ def root():
         [sg.Button('Gerar Relatório', s=(15,1))],
         [sg.Button('Sair', s=(15,1))], [sg.Button('Créditos', s=(15,1))]
     ]
-   
+
     combo = [
         [sg.Listbox( [] , enable_events=True, key='profs',size=(15,5))],
         [sg.Combo(k_filtros, k='filtros', enable_events=True,s=(15,1))],
